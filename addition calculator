@@ -1,0 +1,86 @@
+import java.util.*;
+public class ProceduralArray{
+	public static void main(String[] args){
+		String first, second, larger, smaller;
+		int largest, smallest, leftPad, count, carryOver = 0, leadingZero = 0;
+		Scanner keyboard = new Scanner(System.in);
+
+		//INPUTS-----------------------------------------------
+		do
+		{
+			System.out.print("Enter a positive number ");
+			first = keyboard.nextLine();
+		}while (!(Integer.parseInt(first) > 0));
+
+		do
+		{
+			System.out.print("Enter another positive number ");
+			second = keyboard.nextLine();
+		}while (!(Integer.parseInt(second) > 0));
+
+		//FIND LARGEST / SMALLEST STRING LENGTHS-----------------------------------------
+		largest = (first.length() > second.length()) ? first.length() : second.length();
+		smallest = (first.length() < second.length()) ? first.length() : second.length();
+		leftPad = largest - smallest;//difference of two numbers
+
+		//FIND NUMBER THAT'S NUMERICALLY LARGER --------------------------------------
+		if (Integer.parseInt(first) > Integer.parseInt(second)){//swap larger # on top
+			larger = first;
+			smaller = second;
+		}
+		else{
+			smaller = first;
+			larger = second;
+		}
+
+		//POPULATE ARRAYS---------------------------------------------------------
+		count = 0;
+		int[] array1 = new int[largest + 1];
+		for (int index = 1; index < largest + 1; index++){//array1
+			array1[index] = Integer.parseInt(larger.substring(count, count + 1));
+			count++;
+		}
+
+		count = 0;
+		int[] array2 = new int[largest + 1];
+		for (int index = leftPad + 1; index < largest + 1; index++){//array2
+			array2[index] = Integer.parseInt(smaller.substring(count, count + 1));
+			count++;
+		}
+
+		int[] array3 = new int[largest + 1];
+		for (int index = largest; index >= 0; index--){//array3
+			array3[index] = (array1[index] + array2[index] + carryOver) % 10;
+			carryOver = (array1[index] + array2[index] + carryOver) / 10;
+		}
+
+		//PRINT ARRAYS------------------------------------------------------
+		System.out.println();
+		System.out.print(" ");//compensate one extra index for array3
+		for (int index = 1; index < largest + 1; index++)//array1
+			System.out.print(array1[index]);
+
+		System.out.println();
+		System.out.print("+");
+		for (int index = 1; index < leftPad + 1; index++)//array2 indent
+			System.out.print(" ");
+
+		for (int index = leftPad + 1; index < largest + 1; index++)//array2
+			System.out.print(array2[index]);
+
+		System.out.println();
+		for (int index = 0; index < largest + 1; index++)//addition bar
+			System.out.print("-");
+
+		System.out.println();
+		if (array3[0] == 0){//index position to omit leading zero in array3
+			leadingZero = 1;
+			System.out.print(" ");
+		}
+
+		for (int index = leadingZero; index < largest + 1; index++)//array3
+			System.out.print(array3[index]);
+		System.out.println();
+		System.out.println();
+	}
+}
