@@ -1,0 +1,32 @@
+import java.util.*;
+public class Quiz{
+	int correct = 0;
+	int answered;
+	public ArrayList<Question> questions = new ArrayList<Question>();
+
+	public void add(Question question){
+		questions.add(question);
+	}
+
+	public int numberOfQuestions(){
+		return questions.size();
+	}
+
+	public String indexedQuestions(int index){
+		if(index < 0 || numberOfQuestions() <= index)
+			return "null";
+		return questions.get(index).getQuestion();
+	}
+
+	public int numberOfQuestionsAnswered(int index){
+		if(questions.get(index).beenAnswered());
+			answered++;
+		return answered;
+	}
+
+	public int numberOfCorrectAnswers(int index){
+		if(questions.get(index).verifyAnswer());
+			correct++;
+		return correct;
+	}
+}
