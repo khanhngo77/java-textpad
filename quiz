@@ -1,0 +1,46 @@
+import java.util.*;
+public class QuizTest{
+	public static void main(String[] args){
+		int correct = 0;
+		Scanner keyboard = new Scanner(System.in);
+
+		//CREATE A QUIZ OBJECT CONTAINING 5 QUESTIONS-----------------------------------------------------------------
+		Question iQ0 = new Question("Pop, Top, Mop, Cop, Hop. What do you do when you come to a green light? ", "go");
+		Question iQ1 = new Question("Bin, Fin, Gin, Kin, Din. What's an aluminum can made out of? ", "aluminum");
+		Question iQ2 = new Question("Post, Most, Host, Coast, Boast. What do you put in a toaster? ", "bread");
+        Question iQ3 = new Question("Wilt, Milk, Hilt, Tilt, Silk. What do cows drink? ", "water");
+        Question iQ4 = new Question("Is a tomato a fruit (yes/no)? ", "yes");
+		Quiz fiveQ = new Quiz();
+        fiveQ.add(iQ0);
+        fiveQ.add(iQ1);
+        fiveQ.add(iQ2);
+        fiveQ.add(iQ3);
+        fiveQ.add(iQ4);
+
+		for(int index = 0; index < 5; index++){
+
+			//PRESENT THE TEXT OF THE NTH QUESTION (STARTING AT 0)-----
+			System.out.print(fiveQ.questions.get(index).getQuestion());
+
+			//ALLOW THE USER TO ANSWER THE QUESTION-----------------------
+			fiveQ.questions.get(index).setLastAnswer(keyboard.nextLine());
+
+
+			//INDICATE WHETHER OR NOT THE ANSWER WAS CORRECT-----------------------------------------------------
+			if(fiveQ.questions.get(index).verifyAnswer()){
+				System.out.println("You soooo smart!");
+				correct++;
+			}
+			else
+				System.out.println("You da dumb dumb! The answer is: " + fiveQ.questions.get(index).getAnswer());
+
+			//DISPLAY VALUES-----------------------------------------------------------------------------------
+			System.out.println(correct + " question(s) answered correctly");
+			System.out.println(fiveQ.numberOfQuestionsAnswered(index) + " out of 5 questions answered so far");
+			System.out.println();
+		}
+
+		//SHOW A FINAL GRADE AS A PERCENTAGE-----------------------------------
+		System.out.println("Your score is " + correct / (double)5 * 100 + "%");
+	}
+}
