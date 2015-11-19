@@ -1,0 +1,36 @@
+public class Question{
+	private String questionSave, answerSave, lastAnswer = "Not given";
+
+    public Question(String q, String a){
+        questionSave = q;
+        answerSave = a;
+	}
+
+	public String getQuestion(){
+		return questionSave;
+	}
+
+	public String getAnswer(){
+		return answerSave;
+	}
+
+	public String getLastAnswer(){
+		return lastAnswer;
+	}
+
+	public void setLastAnswer(String a){
+		lastAnswer = a;
+	}
+
+	public boolean beenAnswered(){
+		if(lastAnswer == null)
+			return false;
+		return true;
+	}
+
+	public boolean verifyAnswer(){
+		if (answerSave.equalsIgnoreCase(lastAnswer))
+			return true;
+		return false;
+	}
+}
